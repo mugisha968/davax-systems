@@ -79,7 +79,7 @@ All contact values are centralized in `src/data/content.ts` and synced across th
    - **Root Directory**: `./`
    - **Build Command**: `npm run build`
    - **Output Directory**: `dist`
-   - **Install Command**: `npm install`
+   - **Install Command**: `npm install --legacy-peer-deps` (automatically configured in `vercel.json`)
 
 5. **Deploy**:
    - Click **Deploy**.
