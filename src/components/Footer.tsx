@@ -1,9 +1,13 @@
 import React from 'react';
 import { LogoPlaceholder } from './LogoPlaceholder';
-import { ArrowUp, Github, Linkedin, Twitter, Globe } from 'lucide-react';
+import { ArrowUp, Github, Linkedin, Twitter, Settings } from 'lucide-react';
 import { COMPANY_INFO } from '../data/content';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onOpenAdmin?: () => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -53,10 +57,10 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Social Links (Placeholders clearly designated) & Back to Top */}
+          {/* Social Links & Admin Access */}
           <div className="space-y-3 text-left md:text-right">
             <div className="text-xs font-mono uppercase tracking-wider text-slate-300 font-semibold">
-              Connect
+              Connect &amp; Admin
             </div>
             <div className="flex items-center gap-3">
               <span
@@ -78,9 +82,20 @@ export const Footer: React.FC = () => {
                 <Twitter className="w-4 h-4" />
               </span>
             </div>
-            <div className="text-[11px] font-mono text-slate-600">
-              Social accounts placeholder
-            </div>
+
+            {/* Admin Portal Quick Access */}
+            {onOpenAdmin && (
+              <div className="pt-1">
+                <button
+                  type="button"
+                  onClick={onOpenAdmin}
+                  className="inline-flex items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-cyan-400 transition-colors cursor-pointer"
+                >
+                  <Settings className="w-3.5 h-3.5" />
+                  <span>Admin / Upload Logo</span>
+                </button>
+              </div>
+            )}
           </div>
         </div>
 

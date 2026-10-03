@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { LogoProvider } from './context/LogoContext';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { TrustStrip } from './components/TrustStrip';
@@ -17,20 +18,52 @@ import { TechStack } from './components/TechStack';
 import { CTASection } from './components/CTASection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
+import { AdminPage } from './pages/AdminPage';
 
-export default function App() {
+function AppContent() {
+  const [currentView, setCurrentView] = useState<'website' | 'admin'>(() => {
+    return window.location.hash === '#admin' ? 'admin' : 'website';
+  });
+
   const [selectedServiceForContact, setSelectedServiceForContact] = useState<string>(
     'Custom Business Systems'
   );
 
+  useEffect(() => {
+    const handleHashChange = () => {
+      if (window.location.hash === '#admin') {
+        setCurrentView('admin');
+      } else {
+        setCurrentView('website');
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  const navigateToAdmin = () => {
+    window.location.hash = '#admin';
+    setCurrentView('admin');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const navigateToWebsite = () => {
+    window.location.hash = '';
+    setCurrentView('website');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const scrollToContact = (serviceTitle?: string) => {
+    if (currentView === 'admin') {
+      navigateToWebsite();
+    }
     if (serviceTitle) {
       setSelectedServiceForContact(serviceTitle);
     }
     const contactSection = document.getElementById('contact');
     if (contactSection) {
       contactSection.scrollIntoView({ behavior: 'smooth' });
-      // Focus the name input after a short delay
       setTimeout(() => {
         const nameInput = document.getElementById('name');
         if (nameInput) {
@@ -41,11 +74,18 @@ export default function App() {
   };
 
   const scrollToServices = () => {
+    if (currentView === 'admin') {
+      navigateToWebsite();
+    }
     const servicesSection = document.getElementById('services');
     if (servicesSection) {
       servicesSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  if (currentView === 'admin') {
+    return <AdminPage onBackToWebsite={navigateToWebsite} />;
+  }
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-cyan-500/20 selection:text-cyan-200">
@@ -94,8 +134,16 @@ export default function App() {
         <ContactSection initialService={selectedServiceForContact} />
       </main>
 
-      {/* Footer */}
-      <Footer />
+      {/* Footer with Admin Access Link */}
+      <Footer onOpenAdmin={navigateToAdmin} />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <LogoProvider>
+      <AppContent />
+    </LogoProvider>
   );
 }

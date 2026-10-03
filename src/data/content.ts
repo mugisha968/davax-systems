@@ -11,13 +11,15 @@ export const COMPANY_INFO = {
   statement:
     'From a simple website to a complete business system, we build technology around the way your business actually works.',
   builtFor: ['Startups', 'Small Businesses', 'Organizations', 'Growing Companies'],
-  contactPlaceholders: {
-    email: 'contact@davaxsystems.com',
+  contact: {
+    email: 'davaxsystems@gmail.com',
     emailNote: 'Official inquiries inbox',
-    phone: '+1 (555) 019-2834',
-    phoneNote: 'Direct / WhatsApp business channel',
-    location: 'Available Globally · Remote-First',
-    locationNote: 'Headquartered for distributed client delivery',
+    phone: '0735316885',
+    phoneFormatted: '+250 735 316 885',
+    phoneNote: 'Direct phone & WhatsApp business line',
+    whatsappUrl: 'https://wa.me/250735316885',
+    location: 'Kigali, Rwanda · Available Globally',
+    locationNote: 'Headquartered for regional and distributed client delivery',
   },
 };
 

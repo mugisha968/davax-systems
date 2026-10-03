@@ -89,7 +89,7 @@ ${formData.projectDetails}`;
     setTimeout(() => setCopied(false), 2500);
   };
 
-  const mailtoUrl = `mailto:${COMPANY_INFO.contactPlaceholders.email}?subject=${encodeURIComponent(
+  const mailtoUrl = `mailto:${COMPANY_INFO.contact.email}?subject=${encodeURIComponent(
     `Project Inquiry: ${formData.serviceNeeded} - ${formData.name}`
   )}&body=${encodeURIComponent(getBriefText())}`;
 
@@ -112,7 +112,7 @@ ${formData.projectDetails}`;
               </p>
             </div>
 
-            {/* Direct Contact Channels (Placeholders clearly tagged) */}
+            {/* Direct Contact Channels */}
             <div className="space-y-4 pt-2">
               <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800 flex items-start gap-3.5">
                 <div className="w-9 h-9 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-center shrink-0">
@@ -120,16 +120,16 @@ ${formData.projectDetails}`;
                 </div>
                 <div>
                   <div className="text-xs font-mono text-slate-400">
-                    Direct Email <span className="text-[10px] text-slate-500">[Placeholder]</span>
+                    Direct Email
                   </div>
                   <a
-                    href={`mailto:${COMPANY_INFO.contactPlaceholders.email}`}
+                    href={`mailto:${COMPANY_INFO.contact.email}`}
                     className="text-sm font-semibold text-slate-200 hover:text-cyan-400 transition-colors"
                   >
-                    {COMPANY_INFO.contactPlaceholders.email}
+                    {COMPANY_INFO.contact.email}
                   </a>
                   <div className="text-[11px] text-slate-500 mt-0.5">
-                    {COMPANY_INFO.contactPlaceholders.emailNote}
+                    {COMPANY_INFO.contact.emailNote}
                   </div>
                 </div>
               </div>
@@ -140,13 +140,28 @@ ${formData.projectDetails}`;
                 </div>
                 <div>
                   <div className="text-xs font-mono text-slate-400">
-                    Phone / WhatsApp <span className="text-[10px] text-slate-500">[Placeholder]</span>
+                    Phone &amp; WhatsApp
                   </div>
-                  <span className="text-sm font-semibold text-slate-200">
-                    {COMPANY_INFO.contactPlaceholders.phone}
-                  </span>
+                  <div className="flex flex-wrap items-center gap-2 mt-0.5">
+                    <a
+                      href={`tel:${COMPANY_INFO.contact.phone}`}
+                      className="text-sm font-semibold text-slate-200 hover:text-cyan-400 transition-colors font-mono"
+                    >
+                      {COMPANY_INFO.contact.phone}
+                    </a>
+                    <span className="text-slate-600">·</span>
+                    <a
+                      href={COMPANY_INFO.contact.whatsappUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs text-emerald-400 hover:text-emerald-300 font-medium inline-flex items-center gap-1"
+                    >
+                      <span>Chat on WhatsApp</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
                   <div className="text-[11px] text-slate-500 mt-0.5">
-                    {COMPANY_INFO.contactPlaceholders.phoneNote}
+                    {COMPANY_INFO.contact.phoneNote}
                   </div>
                 </div>
               </div>
@@ -157,13 +172,13 @@ ${formData.projectDetails}`;
                 </div>
                 <div>
                   <div className="text-xs font-mono text-slate-400">
-                    Location <span className="text-[10px] text-slate-500">[Placeholder]</span>
+                    Location
                   </div>
                   <span className="text-sm font-semibold text-slate-200">
-                    {COMPANY_INFO.contactPlaceholders.location}
+                    {COMPANY_INFO.contact.location}
                   </span>
                   <div className="text-[11px] text-slate-500 mt-0.5">
-                    {COMPANY_INFO.contactPlaceholders.locationNote}
+                    {COMPANY_INFO.contact.locationNote}
                   </div>
                 </div>
               </div>

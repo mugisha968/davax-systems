@@ -1,13 +1,11 @@
 import React from 'react';
+import { useLogo } from '../context/LogoContext';
 
 interface LogoPlaceholderProps {
   className?: string;
   size?: 'sm' | 'md' | 'lg';
   /**
-   * Note for the owner:
-   * To replace this placeholder with your real SVG or PNG logo:
-   * 1. Place your logo file in `/public/logo.svg` (or `/public/logo.png`)
-   * 2. Set customLogoSrc="/logo.svg" or update defaultLogoSrc below.
+   * Optional manual override. If not passed, it automatically uses the logo uploaded via the Admin Portal or saved in localStorage.
    */
   customLogoSrc?: string;
 }
@@ -17,16 +15,26 @@ export const LogoPlaceholder: React.FC<LogoPlaceholderProps> = ({
   size = 'md',
   customLogoSrc,
 }) => {
-  // If a real logo asset is provided or placed in /public/logo.svg, render the real logo image
-  if (customLogoSrc) {
+  const { logoSrc: globalUploadedLogo } = useLogo();
+  const activeLogo = customLogoSrc || globalUploadedLogo;
+
+  // If a real logo asset is uploaded or provided, render the real logo image
+  if (activeLogo) {
+    const sizeClasses =
+      size === 'sm'
+        ? 'max-h-7 max-w-[120px]'
+        : size === 'lg'
+        ? 'max-h-12 max-w-[200px]'
+        : 'max-h-9 max-w-[160px]';
+
     return (
-      <img
-        src={customLogoSrc}
-        alt="Davax Systems Logo"
-        className={`h-auto object-contain ${
-          size === 'sm' ? 'w-24' : size === 'lg' ? 'w-44' : 'w-32'
-        } ${className}`}
-      />
+      <div className={`inline-flex items-center ${className}`}>
+        <img
+          src={activeLogo}
+          alt="Davax Systems Logo"
+          className={`h-auto object-contain transition-opacity duration-200 ${sizeClasses}`}
+        />
+      </div>
     );
   }
 
