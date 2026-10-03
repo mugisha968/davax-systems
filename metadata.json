@@ -1,0 +1,6 @@
+{
+  "name": "Davax Systems",
+  "description": "Davax Systems builds modern websites, custom business systems, web applications, dashboards, automation tools, and digital solutions for businesses and organizations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
